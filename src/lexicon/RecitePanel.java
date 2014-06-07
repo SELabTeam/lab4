@@ -47,6 +47,7 @@ public class RecitePanel extends JPanel implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(statInfo);
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.statInfo.setEditable(false);
+		this.statInfo.setVisible(false);
 		
 		GridLayout gLayout = new GridLayout(5, 2);
 		answerPanel.setLayout(gLayout);
@@ -106,6 +107,7 @@ public class RecitePanel extends JPanel implements ActionListener {
 		if(signal.equals("update"))
 			paintInfo();
 		else if(signal.equals("finish")){
+			this.statInfo.setVisible(true);
 			this.statInfo.setText(controllor.getStatInfo());
 			this.okButton.setEnabled(false);
 		}
@@ -124,6 +126,7 @@ public class RecitePanel extends JPanel implements ActionListener {
 	public void refresh(){
 		this.okButton.setEnabled(true);
 		this.statInfo.setText("");
+		this.statInfo.setVisible(false);
 		this.preAnswerLabel.setText("");
 		this.isCorrectLabel.setText("");
 		this.ChineseJtx.setText("");

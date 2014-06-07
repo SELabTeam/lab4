@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.border.TitledBorder;
 
 import com.wordmaster.recitecontrollor.ReciteControllor;
 import com.wordmaster.recitemodel.ReciteFactory;
@@ -32,7 +33,10 @@ public class ReciteView extends JFrame {
 	private JPanel readyPanel = new JPanel();
 	private JPanel beginPanel = new JPanel();
 	private RecitePanel recitationPanel = new RecitePanel(cardLayout, cardPanel);
-	private JPanel statPanel = new JPanel();
+	
+	private PieChartPanel piePanel=new PieChartPanel(cardLayout,cardPanel);
+	private BarChartPanel barPanel=new BarChartPanel(cardLayout,cardPanel);
+	private StatPanel statPanel = new StatPanel(cardLayout,cardPanel,piePanel,barPanel);
 	
 	private ReciteSession model = null;
 	private ReciteControllor controllor = null;
@@ -52,6 +56,7 @@ public class ReciteView extends JFrame {
 	private static void constructUI() {
 
 		ReciteView frame = new ReciteView();
+		frame.setTitle("WordMaster");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400, 400);
 		frame.setLocationRelativeTo(null);
@@ -72,6 +77,9 @@ public class ReciteView extends JFrame {
 		cardPanel.add(beginPanel, "begin");
 		cardPanel.add(recitationPanel, "recitation");
 		cardPanel.add(statPanel, "stat");
+		cardPanel.add(piePanel, "pie");
+		cardPanel.add(barPanel, "bar");
+		
 	}
 
 	private void drawFiveSubPanel() {
@@ -79,12 +87,13 @@ public class ReciteView extends JFrame {
 		drawReadyPanel();
 		drawBeginPanel();
 		//drawRecitationPanel();
-		drawStatPanel();
+		//drawStatPanel();
 	}
 
 	private void drawLexiconPanel() {
 		GridLayout gLayout = new GridLayout(6, 5);
 		lexiconPanel.setLayout(gLayout);
+		lexiconPanel.setBorder(new TitledBorder("请选择词库"));
 		// JButton[] lexiconButtons=new JButton[30];
 		List<JButton> buttonList = new ArrayList<JButton>();
 		for (int i = 65; i < 91; i++) {
@@ -120,14 +129,14 @@ public class ReciteView extends JFrame {
 		GridLayout gLayout = new GridLayout(3, 2, 5, 5);
 		readyPanel.setLayout(gLayout);
 
-		JButton lexicon = new JButton();
-		lexicon.setEnabled(false);
+		JButton jbt_lexicon = new JButton();
+		jbt_lexicon.setEnabled(false);
 		
 		JButton beginButton = new JButton("开始背诵");
 		JButton statButton = new JButton("统计信息");
 		JButton returnButton = new JButton("返回");
 
-		readyPanel.add(lexicon);
+		readyPanel.add(jbt_lexicon);
 		readyPanel.add(beginButton);
 		readyPanel.add(new JLabel());
 		readyPanel.add(new JLabel());
@@ -148,8 +157,10 @@ public class ReciteView extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				statPanel.setLexicon(lexicon);
+				statPanel.getStatInfo();
+				statPanel.paintInfo();
 				cardLayout.show(cardPanel, "stat");
-
 			}
 
 		});
@@ -254,30 +265,6 @@ public class ReciteView extends JFrame {
 
 	}
 
-	private void drawStatPanel() {
-		BorderLayout bLayout = new BorderLayout();
-		statPanel.setLayout(bLayout);
-
-		JPanel statInfoPanel = new JPanel();
-		JPanel operationPanel = new JPanel();
-		statPanel.add(statInfoPanel, BorderLayout.NORTH);
-		statPanel.add(operationPanel, BorderLayout.SOUTH);
-
-		JLabel statInfoLabel = new JLabel("xxx");
-		statInfoPanel.add(statInfoLabel);
-
-		JButton returnButton = new JButton("返回");
-		operationPanel.add(returnButton);
-
-		returnButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cardPanel, "ready");
-
-			}
-
-		});
-	}
+	
 
 }
