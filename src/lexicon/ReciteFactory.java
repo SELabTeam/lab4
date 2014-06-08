@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 import com.wordmaster.lexicon.Lexicon;
 
 public class ReciteFactory {
-
+   
+	//user for test
 	public static int status = 0;
-	
 	public static String wordTest;
 	public static int lengthTest;
 	
@@ -28,19 +28,25 @@ public class ReciteFactory {
 			
 			word = verifyWord;
 			
+			//user for test
 			status = 1;       //没有找到输入的单词
 		}
 		
+		//user for test
 		wordTest = word;
 		
 		int remain = Lexicon.getInstance().leftCount(lexicon, word);    
 		
-		if(remain<length){
+		if(length==-1){
+			length = remain;
+		}
+		else if(remain<length){
 			JOptionPane.showMessageDialog(null, "词库"+lexicon+"在"+word+"之后的单词数不足"+length
 					+"，将把之后所有单词都加入这次记忆中。", "单词数不足", JOptionPane.INFORMATION_MESSAGE);
 			
 			length = remain;
 			
+			//user for test
 			status = 2;        //剩余的单词数不足
 		}
 		
@@ -66,6 +72,7 @@ public class ReciteFactory {
 			int remain = Lexicon.getInstance().leftCount(lexicon, startWord);                    //调用接口
 			scanner.close();
 			
+			//user for test
 			wordTest = startWord;
 			lengthTest = remain;
 			
@@ -77,6 +84,7 @@ public class ReciteFactory {
 			String startWord = Lexicon.getInstance().getNext(lexicon, null, 0).getWord();      
 			int length = Lexicon.getInstance().leftCount(lexicon, startWord);                    //调用接口
 			
+			//user for test
 			wordTest = startWord;
 			lengthTest = length;
 			

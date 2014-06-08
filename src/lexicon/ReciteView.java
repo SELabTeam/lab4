@@ -229,7 +229,12 @@ public class ReciteView extends JFrame {
 				boolean checked = newJrb.isSelected();
 				if(checked){
 					String startStr = beginJtx.getText().trim();
-					int length = Integer.parseInt(lengthJtx.getText().trim());
+					int length = -1;
+					try{
+						length = Integer.parseInt(lengthJtx.getText().trim());
+					} catch (NumberFormatException event){
+						length = -1;
+					}
 					
 					model = ReciteFactory.createReciteSession(lexicon, startStr, length, recitationPanel);
 					controllor = new ReciteControllor(model);
