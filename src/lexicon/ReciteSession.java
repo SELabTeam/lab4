@@ -7,8 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.wordmaster.lexicon.Lexicon;
 import com.wordmaster.lexicon.Word;
+import com.wordmaster.lexicon.XMLLexicon;
 
 public class ReciteSession {
 
@@ -31,7 +31,7 @@ public class ReciteSession {
 			ActionListener actionListener){
 		
 		this.lexicon = lexicon;
-		this.startWord = Lexicon.getInstance().getNext(lexicon, startWorld, 0);           
+		this.startWord = XMLLexicon.getInstance().getNext(lexicon, startWorld, 0);           
 		this.reciteLen = reciteLen;
 		this.listener = actionListener;
 		
@@ -83,7 +83,7 @@ public class ReciteSession {
 			return;
 		}
 			
-		this.currentWord = Lexicon.getInstance().getNext(lexicon, this.startWord.getWord(), this.offset);   
+		this.currentWord = XMLLexicon.getInstance().getNext(lexicon, this.startWord.getWord(), this.offset);   
 		
 		this.throwEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "update"));
 	}

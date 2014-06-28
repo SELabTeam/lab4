@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import com.wordmaster.lexicon.Lexicon;
+import com.wordmaster.lexicon.XMLLexicon;
 
 public class ReciteFactory {
    
@@ -20,7 +20,7 @@ public class ReciteFactory {
 	public static ReciteSession createReciteSession(String lexicon, 
 			String word, int length, ActionListener listener){
 		
-		String verifyWord = Lexicon.getInstance().getNext(lexicon, word, 0).getWord();
+		String verifyWord = XMLLexicon.getInstance().getNext(lexicon, word, 0).getWord();
 		
 		if(!verifyWord.equals(word)){
 			JOptionPane.showMessageDialog(null, "词库"+lexicon+"中不存在单词 "+ word
@@ -35,7 +35,7 @@ public class ReciteFactory {
 		//user for test
 		wordTest = word;
 		
-		int remain = Lexicon.getInstance().leftCount(lexicon, word);    
+		int remain = XMLLexicon.getInstance().leftCount(lexicon, word);    
 		
 		if(length==-1){
 			length = remain;
@@ -69,7 +69,7 @@ public class ReciteFactory {
 				scanner.nextInt();
 			}
 			
-			int remain = Lexicon.getInstance().leftCount(lexicon, startWord);                    //调用接口
+			int remain = XMLLexicon.getInstance().leftCount(lexicon, startWord);                    //调用接口
 			scanner.close();
 			
 			//user for test
@@ -81,8 +81,8 @@ public class ReciteFactory {
 		} catch (FileNotFoundException e) {
 			
 			//没有历史信息，从第一个单词背起
-			String startWord = Lexicon.getInstance().getNext(lexicon, null, 0).getWord();      
-			int length = Lexicon.getInstance().leftCount(lexicon, startWord);                    //调用接口
+			String startWord = XMLLexicon.getInstance().getNext(lexicon, null, 0).getWord();      
+			int length = XMLLexicon.getInstance().leftCount(lexicon, startWord);                    //调用接口
 			
 			//user for test
 			wordTest = startWord;

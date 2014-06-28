@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.wordmaster.lexicon.Lexicon;
+import com.wordmaster.lexicon.XMLLexicon;
 import com.wordmaster.utils.Accuracy;
 import com.wordmaster.utils.StatisticManager;
 
@@ -122,7 +122,7 @@ public class StatPanel extends JPanel{
 	public void getStatInfo() {
 		
 		/*should be modified using controller*/
-		Lexicon lex=Lexicon.getInstance();
+		XMLLexicon lex=XMLLexicon.getInstance();
 		Accuracy accy=StatisticManager.getCurrentAccuracy(lexicon);
 		if(accy!=null){
 		right=accy.getRightCount();
